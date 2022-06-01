@@ -1,6 +1,6 @@
-import "./app.css"
-import { Users } from "./users"
-import { useState, useEffect } from  'react';
+import "./app.css";
+import { Users } from "./users";
+import { useState, useEffect } from "react";
 import { Table } from "./Table";
 import axios from "axios";
 //---------------------------------------------------------
@@ -40,7 +40,7 @@ import axios from "axios";
     );
   }; */
 
-  /* const searchUsers = (data) => {
+/* const searchUsers = (data) => {
     return data.filter(item => 
      item.first_name.toLowerCase().includes(query)||
      item.last_name.toLowerCase().includes(query)||
@@ -49,18 +49,16 @@ import axios from "axios";
 //---------------------------------------------------------
 
 //** */ API SEARCH
-function App(){
-
+function App() {
   const [query, setQuery] = useState("");
-  const[data, setData] = useState([])
+  const [data, setData] = useState([]);
   useEffect(() => {
-   const fetchUsers = async () => {
-     const res =  await axios.get('http://localhost:5000');
+    const fetchUsers = async () => {
+      const res = await axios.get(`http://localhost:5000?q=${query}`);
       setData(res.data);
-   };
-   fetchUsers();
-
-  }, []);
+    };
+    if (query.length === 0 || query.length > 2) fetchUsers();
+  }, [query]);
   return (
     <div className="app">
       <input
